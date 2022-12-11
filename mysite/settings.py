@@ -24,9 +24,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 SECRET_KEY = 'k%+9ahbp^i64^)74t2-@*9aa_91^w$23pt#p$-#m*rwke86m-u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1',
+                 '.pythonanywhere.com',
+                 'localhost']
 
 
 # Application definition
