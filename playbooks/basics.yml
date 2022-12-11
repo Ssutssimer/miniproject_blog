@@ -1,0 +1,9 @@
+---
+- hosts: all
+  tasks:
+    - name: hacer un ping
+      ping:
+        
+    - name: mostrar el nombre de la máquina
+      debug:
+        msg: "Nombre de la máquina {{ ansible_hostname }}"

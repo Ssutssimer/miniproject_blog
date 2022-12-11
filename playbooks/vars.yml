@@ -1,0 +1,5 @@
+project_path: "/home/pablo/my-first-blog-ansible"
+project_repo: "https://github.com/Ssutssimer/my-first-blog.git"
+requirements_file: "/home/pablo/my-first-blog-ansible/requirements.txt"
+virtual_env: "/home/pablo/my-first-blog-ansible/.venv"
+initial_data: "/home/pablo/my-first-blog-ansible/db.json"

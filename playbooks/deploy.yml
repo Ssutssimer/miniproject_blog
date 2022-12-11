@@ -1,0 +1,41 @@
+---
+- hosts: eoi-server1
+  vars_files:
+    - vars.yml
+  gather_facts: false
+
+  tasks:
+  # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/git_module.html
+  - name: Hacer un git clone del repositorio
+    ansible.builtin.git:
+      repo: "{{project_repo}}"
+      dest: "{{project_path}}"
+      force: true
+  
+  # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/pip_module.html
+  - name: Crear el entorno virtual e instalar las dependencias
+    ansible.builtin.pip:
+      requirements: "{{requirements_file}}"
+      virtualenv: "{{virtual_env}}"
+      
+  
+  # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html
+  - name: Dar permisos de ejecución al fichero manage.py para poder hacer acciones
+    ansible.builtin.file:
+      path: "{{project_path}}/manage.py"
+      mode: "0777"
+
+
+  # https://docs.ansible.com/ansible/latest/collections/community/general/django_manage_module.html
+  - name: Ejecutar las migraciones
+    community.general.django_manage:
+      command: migrate
+      project_path: "{{project_path}}"
+      virtualenv: "{{virtual_env}}"
+  
+  - name: Cargar los datos iniciales en la base de datos
+    community.general.django_manage:
+      command: loaddata
+      project_path: "{{project_path}}"
+      fixtures: "{{initial_data}}"
+      virtualenv: "{{virtual_env}}"
